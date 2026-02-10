@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MediaTekDocuments.model;
 using MediaTekDocuments.dal;
+using Newtonsoft.Json;
 
 namespace MediaTekDocuments.controller
 {
@@ -78,13 +79,13 @@ namespace MediaTekDocuments.controller
 
 
         /// <summary>
-        /// récupère les exemplaires d'une revue
+        /// récupère les exemplaires d'un document
         /// </summary>
-        /// <param name="idDocuement">id de la revue concernée</param>
+        /// <param name="idDocument">id du document concerné</param>
         /// <returns>Liste d'objets Exemplaire</returns>
-        public List<Exemplaire> GetExemplairesRevue(string idDocuement)
+        public List<Exemplaire> GetExemplaires(string idDocument)
         {
-            return access.GetExemplairesRevue(idDocuement);
+            return access.GetExemplaires(idDocument);
         }
 
         /// <summary>
@@ -95,6 +96,98 @@ namespace MediaTekDocuments.controller
         public bool CreerExemplaire(Exemplaire exemplaire)
         {
             return access.CreerExemplaire(exemplaire);
+        }
+
+        /// <summary>
+        /// Ajoute un livre dans la bdd
+        /// </summary>
+        /// <param name="livre">L'objet Livre concerné</param>
+        /// <returns>True si l'ajout a pu se faire</returns>
+        public bool AjouterLivre(Livre livre)
+        {
+            return access.AjouterElement("livre", livre);
+        }
+
+        /// <summary>
+        /// Modifie un livre dans la bdd
+        /// </summary>
+        /// <param name="livre">L'objet Livre concerné</param>
+        /// <returns>True si la modification a pu se faire</returns>
+        public bool ModifierLivre(Livre livre)
+        {
+            return access.ModifierElement("livre", livre.Id, livre);
+        }
+
+        /// <summary>
+        /// Supprime un livre dans la bdd
+        /// </summary>
+        /// <param name="livre">L'objet Livre concerné</param>
+        /// <returns>True si la suppression a pu se faire</returns>
+        public bool SupprimerLivre(Livre livre)
+        {
+            return access.SupprimerElement("livre", livre.Id);
+        }
+
+
+        /// <summary>
+        /// Ajoute un dvd dans la bdd
+        /// </summary>
+        /// <param name="dvd">L'objet Dvd concerné</param>
+        /// <returns>True si l'ajout a pu se faire</returns>
+        public bool AjouterDvd(Dvd dvd)
+        {
+            return access.AjouterElement("dvd", dvd);
+        }
+
+        /// <summary>
+        /// Modifie un dvd dans la bdd
+        /// </summary>
+        /// <param name="dvd">L'objet Dvd concerné</param>
+        /// <returns>True si la modification a pu se faire</returns>
+        public bool ModifierDvd(Dvd dvd)
+        {
+            return access.ModifierElement("dvd", dvd.Id, dvd);
+        }
+
+        /// <summary>
+        /// Supprime un dvd dans la bdd
+        /// </summary>
+        /// <param name="dvd">L'objet Dvd concerné</param>
+        /// <returns>True si la suppression a pu se faire</returns>
+        public bool SupprimerDvd(Dvd dvd)
+        {
+            return access.SupprimerElement("dvd", dvd.Id);
+        }
+
+
+        /// <summary>
+        /// Ajoute une revue dans la bdd
+        /// </summary>
+        /// <param name="revue">L'objet Revue concerné</param>
+        /// <returns>True si l'ajout a pu se faire</returns>
+        public bool AjouterRevue(Revue revue)
+        {
+            return access.AjouterElement("revue", revue);
+        }
+
+        /// <summary>
+        /// Modifie une revue dans la bdd
+        /// </summary>
+        /// <param name="revue">L'objet Revue concerné</param>
+        /// <returns>True si la modification a pu se faire</returns>
+        public bool ModifierRevue(Revue revue)
+        {
+            return access.ModifierElement("revue", revue.Id, revue);
+        }
+
+        /// <summary>
+        /// Supprime une revue dans la bdd
+        /// </summary>
+        /// <param name="revue">L'objet Revue concerné</param>
+        /// <returns>True si la suppression a pu se faire</returns>
+        public bool SupprimerRevue(Revue revue)
+        {
+            return access.SupprimerElement("revue", revue.Id);
         }
     }
 }

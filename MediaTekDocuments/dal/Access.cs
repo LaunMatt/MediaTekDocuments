@@ -7,6 +7,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace MediaTekDocuments.dal
 {
@@ -37,6 +38,12 @@ namespace MediaTekDocuments.dal
         private const string POST = "POST";
         /// <summary>
         /// méthode HTTP pour update
+        /// <summary>
+        private const string PUT = "PUT";
+        /// <summary>
+        /// méthode HTTP pour delete
+        /// </summary>
+        private const string DELETE = "DELETE";
 
         /// <summary>
         /// Méthode privée pour créer un singleton
@@ -132,19 +139,19 @@ namespace MediaTekDocuments.dal
 
 
         /// <summary>
-        /// Retourne les exemplaires d'une revue
+        /// Retourne les exemplaires d'un element
         /// </summary>
-        /// <param name="idDocument">id de la revue concernée</param>
+        /// <param name="idElement">id de l'élément concerné</param>
         /// <returns>Liste d'objets Exemplaire</returns>
-        public List<Exemplaire> GetExemplairesRevue(string idDocument)
+        public List<Exemplaire> GetExemplaires(string idElement)
         {
-            String jsonIdDocument = convertToJson("id", idDocument);
-            List<Exemplaire> lesExemplaires = TraitementRecup<Exemplaire>(GET, "exemplaire/" + jsonIdDocument, null);
+            String jsonIdElement = convertToJson("id", idElement);
+            List<Exemplaire> lesExemplaires = TraitementRecup<Exemplaire>(GET, "exemplaire/" + jsonIdElement, null);
             return lesExemplaires;
         }
 
         /// <summary>
-        /// ecriture d'un exemplaire en base de données
+        /// écriture d'un exemplaire en base de données
         /// </summary>
         /// <param name="exemplaire">exemplaire à insérer</param>
         /// <returns>true si l'insertion a pu se faire (retour != null)</returns>
@@ -154,6 +161,70 @@ namespace MediaTekDocuments.dal
             try
             {
                 List<Exemplaire> liste = TraitementRecup<Exemplaire>(POST, "exemplaire", "champs=" + jsonExemplaire);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// écriture d'un element en base de données
+        /// </summary>
+        /// <param name="typeElement">type de l'élément à ajouter</param>
+        /// <param name="element">élement à ajouter</param>
+        /// <returns>true si l'ajout a pu se faire (retour != null)</returns>
+        public bool AjouterElement(string typeElement, Object element)
+        {
+            String jsonElement = JsonConvert.SerializeObject(element);
+            try
+            {
+                List<Object> liste = TraitementRecup<Object>(POST, typeElement, "champs=" + jsonElement);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// modification d'un element en base de données
+        /// </summary>
+        /// <param name="typeElement">type de l'élément à modifier</param>
+        /// <param name="idElement">id de l'élément à modifier</param>
+        /// <param name="element">élément à modifier</param>
+        /// <returns>true si la modification a pu se faire (retour != null)</returns>
+        public bool ModifierElement(string typeElement, string idElement, Object element)
+        {
+            String jsonElement = JsonConvert.SerializeObject(element);
+            try
+            {
+                List<Object> liste = TraitementRecup<Object>(PUT, typeElement + "/" + idElement, "champs=" + jsonElement);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// suppression d'un element en base de données
+        /// </summary>
+        /// <param name="typeElement">type de l'élément à supprimer</param>
+        /// <param name="idElement">id de l'élément à supprimer</param>
+        /// <returns>true si la suppression a pu se faire (retour != null)</returns>
+        public bool SupprimerElement(string typeElement, string idElement)
+        {
+            String jsonIdElement = convertToJson("Id", idElement);
+            try
+            {
+                List<Object> liste = TraitementRecup<Object>(DELETE, typeElement + "/" + jsonIdElement, null);
                 return (liste != null);
             }
             catch (Exception ex)
