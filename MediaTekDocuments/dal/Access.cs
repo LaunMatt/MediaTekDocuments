@@ -139,15 +139,37 @@ namespace MediaTekDocuments.dal
 
 
         /// <summary>
-        /// Retourne les exemplaires d'un element
+        /// Retourne les exemplaires d'un document
         /// </summary>
-        /// <param name="idElement">id de l'élément concerné</param>
+        /// <param name="idDocument">id du document concerné</param>
         /// <returns>Liste d'objets Exemplaire</returns>
-        public List<Exemplaire> GetExemplaires(string idElement)
+        public List<Exemplaire> GetExemplaires(string idDocument)
         {
-            String jsonIdElement = convertToJson("id", idElement);
-            List<Exemplaire> lesExemplaires = TraitementRecup<Exemplaire>(GET, "exemplaire/" + jsonIdElement, null);
+            String jsonIdDocument = convertToJson("id", idDocument);
+            List<Exemplaire> lesExemplaires = TraitementRecup<Exemplaire>(GET, "exemplaire/" + jsonIdDocument, null);
             return lesExemplaires;
+        }
+
+        /// <summary>
+        /// Retourne tous les suivis à partir de la BDD
+        /// </summary>
+        /// <returns>Liste d'objets Public</returns>
+        public List<Suivi> GetAllSuivis()
+        {
+            IEnumerable<Suivi> lesSuivis = TraitementRecup<Suivi>(GET, "suivi", null);
+            return new List<Suivi>(lesSuivis);
+        }
+
+        /// <summary>
+        /// Retourne les commandes d'un document
+        /// </summary>
+        /// <param name="idDocument">id du document concerné</param>
+        /// <returns>Liste d'objets CommandeDocument</returns>
+        public List<CommandeDocument> GetCommandeDocuments(string idDocument)
+        {
+            String jsonIdDocument = convertToJson("id", idDocument);
+            List<CommandeDocument> lesCommandeDocuments = TraitementRecup<CommandeDocument>(GET, "commandedocument/" + jsonIdDocument, null);
+            return lesCommandeDocuments;
         }
 
         /// <summary>
@@ -161,6 +183,67 @@ namespace MediaTekDocuments.dal
             try
             {
                 List<Exemplaire> liste = TraitementRecup<Exemplaire>(POST, "exemplaire", "champs=" + jsonExemplaire);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// écriture d'une commande en base de données
+        /// </summary>
+        /// <param name="commandeDocument">commande à insérer</param>
+        /// <returns>true si l'insertion a pu se faire (retour != null)</returns>
+        public bool CreerCommandeDocument(CommandeDocument commandeDocument)
+        {
+            String jsonCommandeDocument = JsonConvert.SerializeObject(commandeDocument, new CustomDateTimeConverter());
+            try
+            {
+                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(POST, "commandedocument", "champs=" + jsonCommandeDocument);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// modification de l'étape de suivi d'une commande en base de données
+        /// </summary>
+        /// <param name="idCommande">id de la commande à modifier</param>
+        /// <param name="commandeDocument">commande à modifier</param>
+        /// <returns>true si la modification a pu se faire (retour != null)</returns>
+        public bool ModifierCommandeDocument(string idCommande, CommandeDocument commandeDocument)
+        {
+            String jsonCommandeDocument = JsonConvert.SerializeObject(commandeDocument, new CustomDateTimeConverter());
+            try
+            {
+                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(PUT, "commandedocument/" + idCommande, "champs=" + jsonCommandeDocument);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// suppression d'une commande en base de données
+        /// </summary>
+        /// <param name="idCommande">commande à supprimer</param>
+        /// <returns>true si la suppression a pu se faire (retour != null)</returns>
+        public bool SupprimerCommandeDocument(string idCommande)
+        {
+            String jsonIdCommande = convertToJson("Id", idCommande);
+            try
+            {
+                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(DELETE, "commande/" + jsonIdCommande, null);
                 return (liste != null);
             }
             catch (Exception ex)
