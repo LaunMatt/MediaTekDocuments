@@ -137,7 +137,6 @@ namespace MediaTekDocuments.dal
             return lesRevues;
         }
 
-
         /// <summary>
         /// Retourne les exemplaires d'un document
         /// </summary>
@@ -161,15 +160,37 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
-        /// Retourne les commandes d'un document
+        /// Retourne les commandes d'un livre ou dvd
         /// </summary>
         /// <param name="idDocument">id du document concerné</param>
         /// <returns>Liste d'objets CommandeDocument</returns>
         public List<CommandeDocument> GetCommandeDocuments(string idDocument)
         {
             String jsonIdDocument = convertToJson("id", idDocument);
-            List<CommandeDocument> lesCommandeDocuments = TraitementRecup<CommandeDocument>(GET, "commandedocument/" + jsonIdDocument, null);
-            return lesCommandeDocuments;
+            List<CommandeDocument> lesCommandesDocument = TraitementRecup<CommandeDocument>(GET, "commandedocument/" + jsonIdDocument, null);
+            return lesCommandesDocument;
+        }
+
+        /// <summary>
+        /// Retourne les abonnements d'une revue
+        /// </summary>
+        /// <param name="idDocument">id du document concerné</param>
+        /// <returns>Liste d'objets Abonnement</returns>
+        public List<Abonnement> GetAbonnements(string idDocument)
+        {
+            String jsonIdDocument = convertToJson("id", idDocument);
+            List<Abonnement> lesAbonnements = TraitementRecup<Abonnement>(GET, "abonnement/" + jsonIdDocument, null);
+            return lesAbonnements;
+        }
+
+        /// <summary>
+        /// Retourne tous les abonnements se finissant dans moins de 30 jours à partir de la BDD
+        /// </summary>
+        /// <returns>Liste d'objets AbonnementFinissant</returns>
+        public List<AbonnementFinissant> GetAbonnementsFinissant()
+        {
+            List<AbonnementFinissant> lesAbonnementsFinissant = TraitementRecup<AbonnementFinissant>(GET, "abonnementfinissant", null);
+            return lesAbonnementsFinissant;
         }
 
         /// <summary>
@@ -193,7 +214,7 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
-        /// écriture d'une commande en base de données
+        /// écriture d'une commande de livre ou dvd en base de données
         /// </summary>
         /// <param name="commandeDocument">commande à insérer</param>
         /// <returns>true si l'insertion a pu se faire (retour != null)</returns>
@@ -213,7 +234,7 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
-        /// modification de l'étape de suivi d'une commande en base de données
+        /// modification de l'étape de suivi d'une commande de livre ou dvd en base de données
         /// </summary>
         /// <param name="idCommande">id de la commande à modifier</param>
         /// <param name="commandeDocument">commande à modifier</param>
@@ -234,16 +255,36 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
-        /// suppression d'une commande en base de données
+        /// suppression d'une commande (abonnement compris) en base de données
         /// </summary>
         /// <param name="idCommande">commande à supprimer</param>
         /// <returns>true si la suppression a pu se faire (retour != null)</returns>
-        public bool SupprimerCommandeDocument(string idCommande)
+        public bool SupprimerCommande(string idCommande)
         {
             String jsonIdCommande = convertToJson("Id", idCommande);
             try
             {
                 List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(DELETE, "commande/" + jsonIdCommande, null);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// écriture d'un abonnement de revue en base de données
+        /// </summary>
+        /// <param name="abonnement">abonnement à insérer</param>
+        /// <returns>true si l'insertion a pu se faire (retour != null)</returns>
+        public bool CreerAbonnement(Abonnement abonnement)
+        {
+            String jsonAbonnement = JsonConvert.SerializeObject(abonnement, new CustomDateTimeConverter());
+            try
+            {
+                List<Abonnement> liste = TraitementRecup<Abonnement>(POST, "abonnement", "champs=" + jsonAbonnement);
                 return (liste != null);
             }
             catch (Exception ex)

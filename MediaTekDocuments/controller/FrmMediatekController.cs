@@ -2,13 +2,14 @@
 using MediaTekDocuments.model;
 using MediaTekDocuments.dal;
 using Newtonsoft.Json;
+using System;
 
 namespace MediaTekDocuments.controller
 {
     /// <summary>
     /// Contrôleur lié à FrmMediatek
     /// </summary>
-    class FrmMediatekController
+    public class FrmMediatekController
     {
         /// <summary>
         /// Objet d'accès aux données
@@ -98,13 +99,23 @@ namespace MediaTekDocuments.controller
         }
 
         /// <summary>
-        /// récupère les commandes d'un document
+        /// récupère les commandes d'un livre ou dvd
         /// </summary>
         /// <param name="idDocument">id du document concerné</param>
         /// <returns>Liste d'objets CommandeDocument</returns>
         public List<CommandeDocument> GetCommandeDocuments(string idDocument)
         {
             return access.GetCommandeDocuments(idDocument);
+        }
+
+        /// <summary>
+        /// récupère les abonnements d'une revue
+        /// </summary>
+        /// <param name="idDocument">id du document concerné</param>
+        /// <returns>Liste d'objets Abonnement</returns>
+        public List<Abonnement> GetAbonnements(string idDocument)
+        {
+            return access.GetAbonnements(idDocument);
         }
 
         /// <summary>
@@ -118,7 +129,7 @@ namespace MediaTekDocuments.controller
         }
 
         /// <summary>
-        /// Crée une commande d'un document dans la bdd
+        /// Crée une commande d'un livre ou dvd dans la bdd
         /// </summary>
         /// <param name="commandeDocument">L'objet CommandeDocument concerné</param>
         /// <returns>True si la création a pu se faire</returns>
@@ -128,7 +139,7 @@ namespace MediaTekDocuments.controller
         }
 
         /// <summary>
-        /// Modifie l'étape de suivi d'une commande d'un document dans la bdd
+        /// Modifie l'étape de suivi d'une commande de livre ou dvd dans la bdd
         /// </summary>
         /// <param name="commandeDocument">L'objet CommandeDocument concerné</param>
         /// <returns>True si la modification a pu se faire</returns>
@@ -138,13 +149,33 @@ namespace MediaTekDocuments.controller
         }
 
         /// <summary>
-        /// Supprime une commande d'un document dans la bdd
+        /// Supprime une commande de livre ou dvd dans la bdd
         /// </summary>
         /// <param name="commandeDocument">L'objet CommandeDocument concerné</param>
         /// <returns>True si la suppression a pu se faire</returns>
         public bool SupprimerCommandeDocument(CommandeDocument commandeDocument)
         {
-            return access.SupprimerCommandeDocument(commandeDocument.Id);
+            return access.SupprimerCommande(commandeDocument.Id);
+        }
+
+        /// <summary>
+        /// Crée un abonnement d'une revue dans la bdd
+        /// </summary>
+        /// <param name="abonnement">L'objet Abonnement concerné</param>
+        /// <returns>True si la création a pu se faire</returns>
+        public bool CreerAbonnement(Abonnement abonnement)
+        {
+            return access.CreerAbonnement(abonnement);
+        }
+
+        /// <summary>
+        /// Supprime un abonnement d'une revue dans la bdd
+        /// </summary>
+        /// <param name="abonnement">L'objet Abonnement concerné</param>
+        /// <returns>True si la suppression a pu se faire</returns>
+        public bool SupprimerAbonnement(Abonnement abonnement)
+        {
+            return access.SupprimerCommande(abonnement.Id);
         }
 
         /// <summary>
@@ -237,6 +268,18 @@ namespace MediaTekDocuments.controller
         public bool SupprimerRevue(Revue revue)
         {
             return access.SupprimerElement("revue", revue.Id);
+        }
+
+        /// <summary>
+        /// Vérifie si la date de parution d'un exemplaire est située entre la date de commande et la date de fin d'un abonnement
+        /// </summary>
+        /// <param name="dateParution"></param>
+        /// <param name="dateCommande"></param>
+        /// <param name="dateFinAbonnement"></param>
+        /// <returns>Retourne true si la date de parution se situe entre la date de commande et la date de fin d'un abonnement</returns>
+        public bool ParutionDansAbonnement(DateTime dateParution, DateTime dateCommande, DateTime dateFinAbonnement)
+        {
+            return dateParution >= dateCommande && dateParution <= dateFinAbonnement;
         }
     }
 }
