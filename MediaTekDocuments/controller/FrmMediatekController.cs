@@ -99,6 +99,15 @@ namespace MediaTekDocuments.controller
         }
 
         /// <summary>
+        /// getter sur les états
+        /// </summary>
+        /// <returns>Liste d'objets Etat</returns>
+        public List<Etat> GetAllEtats()
+        {
+            return access.GetAllEtats();
+        }
+
+        /// <summary>
         /// récupère les commandes d'un livre ou dvd
         /// </summary>
         /// <param name="idDocument">id du document concerné</param>
@@ -126,6 +135,26 @@ namespace MediaTekDocuments.controller
         public bool CreerExemplaire(Exemplaire exemplaire)
         {
             return access.CreerExemplaire(exemplaire);
+        }
+
+        /// <summary>
+        /// Modifie l'état d'un exemplaire dans la bdd
+        /// </summary>
+        /// <param name="exemplaire">L'objet Exemplaire concerné</param>
+        /// <returns>True si la modification a pu se faire</returns>
+        public bool ModifierExemplaire(Exemplaire exemplaire)
+        {
+            return access.ModifierExemplaire(exemplaire.Id, exemplaire);
+        }
+
+        /// <summary>
+        /// Supprime un exemplaire dans la bdd
+        /// </summary>
+        /// <param name="exemplaire">L'objet Exemplaire concerné</param>
+        /// <returns>True si la suppression a pu se faire</returns>
+        public bool SupprimerExemplaire(Exemplaire exemplaire)
+        {
+            return access.SupprimerExemplaire(exemplaire.Id, exemplaire.Numero);
         }
 
         /// <summary>

@@ -152,11 +152,21 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// Retourne tous les suivis à partir de la BDD
         /// </summary>
-        /// <returns>Liste d'objets Public</returns>
+        /// <returns>Liste d'objets Suivi</returns>
         public List<Suivi> GetAllSuivis()
         {
             IEnumerable<Suivi> lesSuivis = TraitementRecup<Suivi>(GET, "suivi", null);
             return new List<Suivi>(lesSuivis);
+        }
+
+        /// <summary>
+        /// Retourne tous les états à partir de la BDD
+        /// </summary>
+        /// <returns>Liste d'objets Etat</returns>
+        public List<Etat> GetAllEtats()
+        {
+            IEnumerable<Etat> lesEtats = TraitementRecup<Etat>(GET, "etat", null);
+            return new List<Etat>(lesEtats);
         }
 
         /// <summary>
@@ -204,6 +214,48 @@ namespace MediaTekDocuments.dal
             try
             {
                 List<Exemplaire> liste = TraitementRecup<Exemplaire>(POST, "exemplaire", "champs=" + jsonExemplaire);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// modification de l'état d'un exemplaire en base de données
+        /// </summary>
+        /// <param name="idExemplaire">id de l'exemplaire à modifier</param>
+        /// <param name="exemplaire">exemplaire à modifier</param>
+        /// <returns>true si la modification a pu se faire (retour != null)</returns>
+        public bool ModifierExemplaire(string idExemplaire, Exemplaire exemplaire)
+        {
+            String jsonExemplaire = JsonConvert.SerializeObject(exemplaire, new CustomDateTimeConverter());
+            try
+            {
+                List<Exemplaire> liste = TraitementRecup<Exemplaire>(PUT, "exemplaire/" + idExemplaire, "champs=" + jsonExemplaire);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// suppression d'un exemplaire en base de données
+        /// </summary>
+        /// <param name="idExemplaire">id de l'exemplaire à supprimer</param>
+        /// <param name="numeroExemplaire">numero de l'exemplaire à supprimer</param>
+        /// <returns>true si la suppression a pu se faire (retour != null)</returns>
+        public bool SupprimerExemplaire(string idExemplaire, int numeroExemplaire)
+        {
+            string jsonExemplaire = "{\"Id\":\"" + idExemplaire + "\",\"Numero\":\"" + numeroExemplaire + "\"}";
+            try
+            {
+                List<Exemplaire> liste = TraitementRecup<Exemplaire>(DELETE, "exemplaire/" + jsonExemplaire, null);
                 return (liste != null);
             }
             catch (Exception ex)
