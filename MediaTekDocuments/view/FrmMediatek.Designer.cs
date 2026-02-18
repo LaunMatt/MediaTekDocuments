@@ -1258,9 +1258,9 @@ namespace MediaTekDocuments.view
             this.grpDvdExemplairesModification.Controls.Add(this.cbxDvdExemplairesModificationEtat);
             this.grpDvdExemplairesModification.Controls.Add(this.btnDvdExemplairesModificationAnnuler);
             this.grpDvdExemplairesModification.Controls.Add(this.btnDvdExemplairesModificationValider);
-            this.grpDvdExemplairesModification.Location = new System.Drawing.Point(471, 861);
+            this.grpDvdExemplairesModification.Location = new System.Drawing.Point(471, 842);
             this.grpDvdExemplairesModification.Name = "grpDvdExemplairesModification";
-            this.grpDvdExemplairesModification.Size = new System.Drawing.Size(213, 80);
+            this.grpDvdExemplairesModification.Size = new System.Drawing.Size(213, 79);
             this.grpDvdExemplairesModification.TabIndex = 50;
             this.grpDvdExemplairesModification.TabStop = false;
             this.grpDvdExemplairesModification.Text = "Modifier l\'état de l\'exemplaire";
@@ -1300,9 +1300,9 @@ namespace MediaTekDocuments.view
             this.grpDvdExemplaires.Controls.Add(this.btnSuppressionDvdExemplaires);
             this.grpDvdExemplaires.Controls.Add(this.btnModificationDvdExemplaires);
             this.grpDvdExemplaires.Controls.Add(this.dgvDvdExemplairesListe);
-            this.grpDvdExemplaires.Location = new System.Drawing.Point(8, 861);
+            this.grpDvdExemplaires.Location = new System.Drawing.Point(8, 842);
             this.grpDvdExemplaires.Name = "grpDvdExemplaires";
-            this.grpDvdExemplaires.Size = new System.Drawing.Size(453, 98);
+            this.grpDvdExemplaires.Size = new System.Drawing.Size(453, 112);
             this.grpDvdExemplaires.TabIndex = 49;
             this.grpDvdExemplaires.TabStop = false;
             this.grpDvdExemplaires.Text = "Exemplaires du dvd";
@@ -1342,7 +1342,7 @@ namespace MediaTekDocuments.view
             this.dgvDvdExemplairesListe.ReadOnly = true;
             this.dgvDvdExemplairesListe.RowHeadersVisible = false;
             this.dgvDvdExemplairesListe.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDvdExemplairesListe.Size = new System.Drawing.Size(241, 74);
+            this.dgvDvdExemplairesListe.Size = new System.Drawing.Size(241, 87);
             this.dgvDvdExemplairesListe.TabIndex = 17;
             this.dgvDvdExemplairesListe.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvDvdExemplairesListe_ColumnHeaderMouseClick);
             // 
@@ -1371,7 +1371,7 @@ namespace MediaTekDocuments.view
             this.grpDvdActions.Controls.Add(this.label77);
             this.grpDvdActions.Controls.Add(this.label78);
             this.grpDvdActions.Controls.Add(this.label79);
-            this.grpDvdActions.Location = new System.Drawing.Point(8, 584);
+            this.grpDvdActions.Location = new System.Drawing.Point(8, 566);
             this.grpDvdActions.Name = "grpDvdActions";
             this.grpDvdActions.Size = new System.Drawing.Size(859, 270);
             this.grpDvdActions.TabIndex = 22;
@@ -1619,7 +1619,7 @@ namespace MediaTekDocuments.view
             this.grpDvdInfos.Controls.Add(this.label29);
             this.grpDvdInfos.Controls.Add(this.label30);
             this.grpDvdInfos.Controls.Add(this.label31);
-            this.grpDvdInfos.Location = new System.Drawing.Point(8, 306);
+            this.grpDvdInfos.Location = new System.Drawing.Point(8, 288);
             this.grpDvdInfos.Name = "grpDvdInfos";
             this.grpDvdInfos.Size = new System.Drawing.Size(859, 272);
             this.grpDvdInfos.TabIndex = 21;
@@ -1852,7 +1852,7 @@ namespace MediaTekDocuments.view
             this.grpDvdRecherche.Controls.Add(this.txbDvdTitreRecherche);
             this.grpDvdRecherche.Location = new System.Drawing.Point(8, 13);
             this.grpDvdRecherche.Name = "grpDvdRecherche";
-            this.grpDvdRecherche.Size = new System.Drawing.Size(859, 287);
+            this.grpDvdRecherche.Size = new System.Drawing.Size(859, 269);
             this.grpDvdRecherche.TabIndex = 20;
             this.grpDvdRecherche.TabStop = false;
             this.grpDvdRecherche.Text = "Recherches";
@@ -1979,13 +1979,13 @@ namespace MediaTekDocuments.view
             this.dgvDvdListe.AllowUserToResizeColumns = false;
             this.dgvDvdListe.AllowUserToResizeRows = false;
             this.dgvDvdListe.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDvdListe.Location = new System.Drawing.Point(9, 133);
+            this.dgvDvdListe.Location = new System.Drawing.Point(9, 132);
             this.dgvDvdListe.MultiSelect = false;
             this.dgvDvdListe.Name = "dgvDvdListe";
             this.dgvDvdListe.ReadOnly = true;
             this.dgvDvdListe.RowHeadersVisible = false;
             this.dgvDvdListe.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDvdListe.Size = new System.Drawing.Size(844, 145);
+            this.dgvDvdListe.Size = new System.Drawing.Size(844, 127);
             this.dgvDvdListe.TabIndex = 4;
             this.dgvDvdListe.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvDvdListe_ColumnHeaderMouseClick);
             this.dgvDvdListe.SelectionChanged += new System.EventHandler(this.dgvDvdListe_SelectionChanged);
@@ -4407,6 +4407,7 @@ namespace MediaTekDocuments.view
             this.Controls.Add(this.tabOngletsApplication);
             this.Name = "FrmMediatek";
             this.Text = "Gestion des documents de la médiathèque";
+            this.Load += new System.EventHandler(this.FrmMediatek_Load);
             this.Shown += new System.EventHandler(this.FrmMediatek_Shown);
             this.tabOngletsApplication.ResumeLayout(false);
             this.tabLivres.ResumeLayout(false);

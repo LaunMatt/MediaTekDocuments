@@ -79,8 +79,43 @@ namespace MediaTekDocuments.view
         /// <param name="e"></param>
         private void FrmMediatek_Shown(object sender, EventArgs e)
         {
-            FrmAlerteFinAbonnements frmAlerteFinAbonnements = new FrmAlerteFinAbonnements();
-            frmAlerteFinAbonnements.ShowDialog();
+            if (Service.Id.Equals("00001") || Service.Id.Equals("00004"))
+            {
+                FrmAlerteFinAbonnements frmAlerteFinAbonnements = new FrmAlerteFinAbonnements();
+                frmAlerteFinAbonnements.ShowDialog();
+            }
+        }
+
+        /// <summary>
+        /// Affichage ou non de certains onglets et certaines fonctionnalités de l'application suivant le service auquel appartient l'utilisateur
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FrmMediatek_Load(object sender, EventArgs e)
+        {
+            if (Service.Id.Equals("00002"))
+            {
+                btnModificationLivres.Visible = false;
+                btnSuppressionLivres.Visible = false;
+                grpLivresActions.Visible = false;
+                grpLivresExemplaires.Visible = false;
+                grpLivresExemplairesModification.Visible = false;
+
+                btnModificationDvd.Visible = false;
+                btnSuppressionDvd.Visible = false;
+                grpDvdActions.Visible = false;
+                grpDvdExemplaires.Visible = false;
+                grpDvdExemplairesModification.Visible = false;
+
+                btnModificationRevues.Visible = false;
+                btnSuppressionRevues.Visible = false;
+                grpRevuesActions.Visible = false;
+
+                tabOngletsApplication.TabPages.Remove(tabReceptionRevue);
+                tabOngletsApplication.TabPages.Remove(tabCommandesLivres);
+                tabOngletsApplication.TabPages.Remove(tabCommandesDvd);
+                tabOngletsApplication.TabPages.Remove(tabCommandesRevues);
+            }
         }
 
         #endregion
@@ -2634,7 +2669,6 @@ namespace MediaTekDocuments.view
             }
         }
 
-
         #endregion
 
         #region Onglet Commandes Livres
@@ -3497,7 +3531,6 @@ namespace MediaTekDocuments.view
             }
         }
 
-
         #endregion
 
         #region Onglet Commandes Revues
@@ -3772,23 +3805,7 @@ namespace MediaTekDocuments.view
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         #endregion
 
-        
     }
 }

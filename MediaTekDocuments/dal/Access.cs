@@ -411,6 +411,35 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
+        /// Vérifie l'authentification et récupère les informations d'un utilisateur dans la base de données si ses informations sont correctes
+        /// </summary>
+        /// <param name="login">login de l'utilisateur essayant de se connecter</param>
+        /// <param name="password">mot de passe de l'utilisateur essayant de se connecter</param>
+        /// <returns>Objet Utilisateur si les informations sont correctes, null si les informations sont incorrectes</returns>
+        public Utilisateur ControleAuthentification(string login, string password)
+        {
+            String jsonLogin = convertToJson("login", login);
+            List<Utilisateur> utilisateur = TraitementRecup<Utilisateur>(GET, "utilisateur/" + jsonLogin, null);
+            if (utilisateur != null && utilisateur.Count > 0)
+            {
+                Utilisateur utilisateurVerifie = utilisateur[0];
+                string utilisateurPassword = utilisateurVerifie.Password;
+                if (utilisateurPassword.Equals(password))
+                {
+                    return utilisateurVerifie;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)
         /// </summary>
         /// <typeparam name="T"></typeparam>
