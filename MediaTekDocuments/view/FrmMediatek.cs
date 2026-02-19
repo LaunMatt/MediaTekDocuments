@@ -45,7 +45,7 @@ namespace MediaTekDocuments.view
         /// <param name="lesCategories">liste des objets de type Genre ou Public ou Rayon</param>
         /// <param name="bdg">bindingsource contenant les informations</param>
         /// <param name="cbx">combobox à remplir</param>
-        public void RemplirComboCategorie(List<Categorie> lesCategories, BindingSource bdg, ComboBox cbx)
+        public static void RemplirComboCategorie(List<Categorie> lesCategories, BindingSource bdg, ComboBox cbx)
         {
             bdg.DataSource = lesCategories;
             cbx.DataSource = bdg;
@@ -61,7 +61,7 @@ namespace MediaTekDocuments.view
         /// <param name="lesEtats">liste des objets de type Etat</param>
         /// <param name="bdg">bindingsource contenant les informations</param>
         /// <param name="cbx">combobox à remplir</param>
-        public void RemplirComboEtatsExemplaires(List<Etat> lesEtats, BindingSource bdg, ComboBox cbx)
+        public static void RemplirComboEtatsExemplaires(List<Etat> lesEtats, BindingSource bdg, ComboBox cbx)
         {
             lesEtats = lesEtats.OrderBy(x => x.Id).ToList();
             bdg.DataSource = lesEtats;
@@ -569,23 +569,12 @@ namespace MediaTekDocuments.view
                 lesExemplaires = controller.GetExemplaires(livre.Id);
                 lesCommandesLivre = controller.GetCommandeDocuments(livre.Id);
 
-                int nbExemplaires = 0;
-                foreach (Exemplaire exemplaire in lesExemplaires)
-                {
-                    if (exemplaire.Id.Equals(livre.Id))
-                    {
-                        nbExemplaires++;
-                    }
-                }
-
-                int nbCommandes = 0;
-                foreach (CommandeDocument commandeLivre in lesCommandesLivre)
-                {
-                    if (commandeLivre.IdLivreDvd.Equals(livre.Id))
-                    {
-                        nbCommandes++;
-                    }
-                }
+                int nbExemplaires = (from Exemplaire exemplaire in lesExemplaires
+                                     where exemplaire.Id.Equals(livre.Id)
+                                     select exemplaire).Count();
+                int nbCommandes = (from CommandeDocument commandeLivre in lesCommandesLivre
+                                   where commandeLivre.IdLivreDvd.Equals(livre.Id)
+                                   select commandeLivre).Count();
 
                 if (nbExemplaires == 0 && nbCommandes == 0)
                 {
@@ -643,14 +632,9 @@ namespace MediaTekDocuments.view
                         string image = txbLivresImageActions.Text;
 
                         lesLivres = controller.GetAllLivres();
-                        int nbIdLivres = 0;
-                        foreach (Livre leLivre in lesLivres)
-                        {
-                            if (leLivre.Id.Equals(id))
-                            {
-                                nbIdLivres++;
-                            }
-                        }
+                        int nbIdLivres = (from Livre leLivre in lesLivres
+                                          where leLivre.Id.Equals(id)
+                                          select leLivre).Count();
 
                         Livre livre = new Livre(id, titre, image, isbn, auteur, collection, idGenre, genre, idPublic, lePublic, idRayon, rayon);
 
@@ -1351,23 +1335,12 @@ namespace MediaTekDocuments.view
                 Dvd dvd = (Dvd)bdgDvdListe.List[bdgDvdListe.Position];
                 lesExemplaires = controller.GetExemplaires(dvd.Id);
                 lesCommandesDvd = controller.GetCommandeDocuments(dvd.Id);
-                int nbExemplaires = 0;
-                foreach (Exemplaire exemplaire in lesExemplaires)
-                {
-                    if (exemplaire.Id.Equals(dvd.Id))
-                    {
-                        nbExemplaires++;
-                    }
-                }
-
-                int nbCommandes = 0;
-                foreach (CommandeDocument commandeDvd in lesCommandesDvd)
-                {
-                    if (commandeDvd.IdLivreDvd.Equals(dvd.Id))
-                    {
-                        nbCommandes++;
-                    }
-                }
+                int nbExemplaires = (from Exemplaire exemplaire in lesExemplaires
+                                     where exemplaire.Id.Equals(dvd.Id)
+                                     select exemplaire).Count();
+                int nbCommandes = (from CommandeDocument commandeDvd in lesCommandesDvd
+                                   where commandeDvd.IdLivreDvd.Equals(dvd.Id)
+                                   select commandeDvd).Count();
 
                 if (nbExemplaires == 0 && nbCommandes == 0)
                 {
@@ -1425,14 +1398,9 @@ namespace MediaTekDocuments.view
                         string image = txbDvdImageActions.Text;
 
                         lesDvd = controller.GetAllDvd();
-                        int nbIdDvd = 0;
-                        foreach (Dvd leDvd in lesDvd)
-                        {
-                            if (leDvd.Id.Equals(id))
-                            {
-                                nbIdDvd++;
-                            }
-                        }
+                        int nbIdDvd = (from Dvd leDvd in lesDvd
+                                       where leDvd.Id.Equals(id)
+                                       select leDvd).Count();
 
                         Dvd dvd = new Dvd(id, titre, image, duree, realisateur, synopsis, idGenre, genre, idPublic, lePublic, idRayon, rayon);
 
@@ -2123,23 +2091,12 @@ namespace MediaTekDocuments.view
                 lesExemplaires = controller.GetExemplaires(revue.Id);
                 lesCommandesRevue = controller.GetAbonnements(revue.Id);
 
-                int nbExemplaires = 0;
-                foreach (Exemplaire exemplaire in lesExemplaires)
-                {
-                    if (exemplaire.Id.Equals(revue.Id))
-                    {
-                        nbExemplaires++;
-                    }
-                }
-
-                int nbCommandes = 0;
-                foreach (Abonnement commandeRevue in lesCommandesRevue)
-                {
-                    if (commandeRevue.IdRevue.Equals(revue.Id))
-                    {
-                        nbCommandes++;
-                    }
-                }
+                int nbExemplaires = (from Exemplaire exemplaire in lesExemplaires
+                                     where exemplaire.Id.Equals(revue.Id)
+                                     select exemplaire).Count();
+                int nbCommandes = (from Abonnement commandeRevue in lesCommandesRevue
+                                   where commandeRevue.IdRevue.Equals(revue.Id)
+                                   select commandeRevue).Count();
 
                 if (nbExemplaires == 0 && nbCommandes == 0)
                 {
@@ -2196,14 +2153,9 @@ namespace MediaTekDocuments.view
                         string image = txbRevuesImageActions.Text;
 
                         lesRevues = controller.GetAllRevues();
-                        int nbIdRevues = 0;
-                        foreach (Revue laRevue in lesRevues)
-                        {
-                            if (laRevue.Id.Equals(id))
-                            {
-                                nbIdRevues++;
-                            }
-                        }
+                        int nbIdRevues = (from Revue laRevue in lesRevues
+                                          where laRevue.Id.Equals(id)
+                                          select laRevue).Count();
 
                         Revue revue = new Revue(id, titre, image, idGenre, genre, idPublic, lePublic, idRayon, rayon, periodicite, delaiMiseADispo);
 
@@ -2463,14 +2415,9 @@ namespace MediaTekDocuments.view
                     string libelle = ETATNEUFLIBELLE;
 
                     lesExemplaires = controller.GetExemplaires(idDocument);
-                    int nbIdExemplaires = 0;
-                    foreach (Exemplaire lExemplaire in lesExemplaires)
-                    {
-                        if (lExemplaire.Numero.Equals(numero))
-                        {
-                            nbIdExemplaires++;
-                        }
-                    }
+                    int nbIdExemplaires = (from Exemplaire lExemplaire in lesExemplaires
+                                           where lExemplaire.Numero.Equals(numero)
+                                           select lExemplaire).Count();
 
                     Exemplaire exemplaire = new Exemplaire(numero, dateAchat, photo, idEtat, idDocument, libelle);
                     if (nbIdExemplaires == 0)
@@ -2830,14 +2777,9 @@ namespace MediaTekDocuments.view
                     string libelleSuivi = SUIVIENCOURSLIBELLE;
 
                     lesCommandesLivre = controller.GetCommandeDocuments(idLivreDvd);
-                    int nbIdCommandes = 0;
-                    foreach (CommandeDocument laCommandeLivre in lesCommandesLivre)
-                    {
-                        if (laCommandeLivre.Id.Equals(id))
-                        {
-                            nbIdCommandes++;
-                        }
-                    }
+                    int nbIdCommandes = (from CommandeDocument laCommandeLivre in lesCommandesLivre
+                                         where laCommandeLivre.Id.Equals(id)
+                                         select laCommandeLivre).Count();
 
                     CommandeDocument commandeDocument = new CommandeDocument(id, dateCommande, montant, nbExemplaire, idLivreDvd, idSuivi, libelleSuivi);
                     if (nbIdCommandes == 0)
@@ -3259,14 +3201,9 @@ namespace MediaTekDocuments.view
                     string libelleSuivi = SUIVIENCOURSLIBELLE;
 
                     lesCommandesDvd = controller.GetCommandeDocuments(idLivreDvd);
-                    int nbIdCommandes = 0;
-                    foreach (CommandeDocument laCommandeDvd in lesCommandesDvd)
-                    {
-                        if (laCommandeDvd.Id.Equals(id))
-                        {
-                            nbIdCommandes++;
-                        }
-                    }
+                    int nbIdCommandes = (from CommandeDocument laCommandeDvd in lesCommandesDvd
+                                         where laCommandeDvd.Id.Equals(id)
+                                         select laCommandeDvd).Count();
 
                     CommandeDocument commandeDocument = new CommandeDocument(id, dateCommande, montant, nbExemplaire, idLivreDvd, idSuivi, libelleSuivi);
                     if (nbIdCommandes == 0)
@@ -3689,14 +3626,9 @@ namespace MediaTekDocuments.view
                         string idRevue = txbCommandesRevuesNumero.Text;
 
                         lesCommandesRevue = controller.GetAbonnements(idRevue);
-                        int nbIdCommandes = 0;
-                        foreach (Abonnement laCommandeRevue in lesCommandesRevue)
-                        {
-                            if (laCommandeRevue.Id.Equals(id))
-                            {
-                                nbIdCommandes++;
-                            }
-                        }
+                        int nbIdCommandes = (from Abonnement laCommandeRevue in lesCommandesRevue
+                                             where laCommandeRevue.Id.Equals(id)
+                                             select laCommandeRevue).Count();
 
                         Abonnement abonnement = new Abonnement(id, dateCommande, montant, dateFinAbonnement, idRevue);
                         if (nbIdCommandes == 0)
@@ -3771,12 +3703,11 @@ namespace MediaTekDocuments.view
 
                 lesExemplaires = controller.GetExemplaires(abonnement.IdRevue);
                 bool datesIncompatibles = false;
-                foreach(Exemplaire lExemplaire in lesExemplaires)
+                foreach (var lExemplaire in from Exemplaire lExemplaire in lesExemplaires
+                                            where datesIncompatibles.Equals(false)
+                                            select lExemplaire)
                 {
-                    if (datesIncompatibles.Equals(false))
-                    {
-                        datesIncompatibles = controller.ParutionDansAbonnement(lExemplaire.DateAchat, abonnement.DateCommande, abonnement.DateFinAbonnement);
-                    }
+                    datesIncompatibles = controller.ParutionDansAbonnement(lExemplaire.DateAchat, abonnement.DateCommande, abonnement.DateFinAbonnement);
                 }
 
                 if (datesIncompatibles.Equals(false))
