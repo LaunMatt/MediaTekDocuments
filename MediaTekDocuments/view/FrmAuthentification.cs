@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using MediaTekDocuments.model;
 using Newtonsoft.Json;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace MediaTekDocuments.view
 {
