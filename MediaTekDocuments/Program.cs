@@ -4,6 +4,14 @@ using System.Windows.Forms;
 
 namespace MediaTekDocuments
 {
+    /// <summary>
+    /// Application de gestion des documents de MediaTek86
+    /// </summary>
+    internal class NamespaceDoc
+    {
+
+    }
+
     static class Program
     {
         /// <summary>

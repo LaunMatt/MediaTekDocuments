@@ -8,6 +8,9 @@ using MediaTekDocuments.model;
 
 namespace MediaTekDocuments.controller
 {
+    /// <summary>
+    /// Contrôleur lié à FrmAuthentification
+    /// </summary>
     public class FrmAuthentificationController
     {
         /// <summary>

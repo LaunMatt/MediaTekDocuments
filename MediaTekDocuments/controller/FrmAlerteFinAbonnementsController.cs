@@ -30,7 +30,7 @@ namespace MediaTekDocuments.controller
         /// <summary>
         /// getter sur la liste des abonnements se finissant dans moins de 30 jours
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Liste d'objets AbonnementFinissant</returns>
         public List<AbonnementFinissant> GetAbonnementsFinissant()
         {
             return access.GetAbonnementsFinissant();

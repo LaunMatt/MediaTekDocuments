@@ -92,7 +92,7 @@ namespace MediaTekDocuments.dal
         /// Récupération de la chaîne de connexion
         /// </summary>
         /// <param name="name">chaîne de connexion dans App.config</param>
-        /// <returns></returns>
+        /// <returns>chaîne de connexion</returns>
         static string GetAuthenticationStringByName(string name)
         {
             string returnValue = null;

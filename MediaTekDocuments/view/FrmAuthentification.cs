@@ -14,6 +14,9 @@ using System.Security.Cryptography;
 
 namespace MediaTekDocuments.view
 {
+    /// <summary>
+    /// Classe d'affichage de la fenêtre d'authentification de l'application
+    /// </summary>
     public partial class FrmAuthentification : Form
     {
         private readonly FrmAuthentificationController controller;
