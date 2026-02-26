@@ -20,7 +20,7 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// adresse de l'API
         /// </summary>
-        private static readonly string uriApi = "http://localhost/rest_mediatekdocuments/";
+        private static readonly string uriApi = "http://restmediatekdocumentsml.atwebpages.com/";
         /// <summary>
         /// Login et mot de passe permettant d'accéder à l'API
         /// </summary>
