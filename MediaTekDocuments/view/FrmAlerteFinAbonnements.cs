@@ -49,7 +49,7 @@ namespace MediaTekDocuments.view
         /// <param name="abonnementsFinissant"></param>
         public void RemplirAbonnementsFinissantListe(List<AbonnementFinissant> abonnementsFinissant)
         {
-            if (abonnementsFinissant != null)
+            if (abonnementsFinissant.Count != 0)
             {
                 bdgAbonnementsFinissantListe.DataSource = abonnementsFinissant;
                 dgvAlerteFinAbonnementsListe.DataSource = bdgAbonnementsFinissantListe;
