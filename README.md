@@ -120,13 +120,14 @@ L'accès à la BDD se fait à travers une API REST protégée par une authentifi
 Le code de l'API REST se trouve ici :<br>
 https://github.com/LaunMatt/rest_mediatekdocuments<br>
 avec les explications pour l'utiliser (dans le readme).
-## Installation de l'application
-Ce mode opératoire permet d'installer l'application pour pouvoir l'utiliser.<br>
-- Installer Visual Studio 2019 entreprise et l'extension newtonsoft.json.<br>
-- Télécharger le code et le dézipper puis renommer le dossier en "MediatekDocuments".<br>
-- Récupérer et installer l'API REST nécessaire (https://github.com/LaunMatt/rest_mediatekdocuments) ainsi que la base de données (les explications sont données dans le readme correspondant).<br>
-- Pour utiliser l'application avec l'API REST locale, modifier la valeur de "uriApi" dans la classe "Access.cs" du package "dal" pour l'url de l'API REST locale :<br>
+## Installation de l'application avec l'installateur
+Pour utiliser l'application créée par l'installateur et qui exploite l'API REST en ligne, lancer l'installateur "MediaTekDocumentsInstalleur" présent dans le dossier du projet téléchargé, suivre les étapes d'installation affichées, puis lancer l'application fonctionnelle à l'aide du raccourci créé sur le bureau (ou celui présent dans le menu "Démarrer" de l'ordinateur).
+## Installation de l'application pour pouvoir visualiser le code dans l'IDE
+Ce mode opératoire permet d'installer l'application pour pouvoir l'utiliser et visualiser son code dans l'IDE.<br>
+- Installer l'IDE Visual Studio Entreprise et y ajouter l'extension newtonsoft.json.<br>
+- Télécharger le code et le dézipper puis renommer le dossier en "MediaTekDocuments".<br>
+- Récupérer et installer l'API REST nécessaire dans le dépôt https://github.com/LaunMatt/rest_mediatekdocuments (afin de pouvoir l'utiliser et visualiser son code), ainsi que la base de données (les explications sont données dans le readme correspondant au niveau de la rubrique "Installation de l'API en local").<br>
+- Par défaut, le code de l'application exploite l'API REST en ligne (l'application est donc directement fonctionnelle). Pour utiliser l'application avec l'API REST locale, modifier la valeur de "uriApi" dans la classe "Access.cs" du package "dal" dans l'IDE pour l'url de l'API REST locale :<br>
 http://localhost/rest_mediatekdocuments/<br>
-- Pour utiliser l'application avec l'API REST en ligne, modifier la valeur de "uriApi" dans la classe "Access.cs" du package "dal" pour l'url de l'API REST en ligne :<br>
-http://restmediatekdocumentsml.atwebpages.com/<br>
-- Pour utiliser l'application créée par l'installateur et qui exploite l'API REST en ligne, lancer l'installateur "MediaTekDocumentsInstalleur" présent dans le dossier du projet téléchargé, suivre les étapes d'installation affichées, puis lancer l'application à l'aide du raccourci créé sur le bureau (ou celui présent dans le menu "Démarrer" de l'ordinateur).
+- Pour utiliser à nouveau l'application avec l'API REST en ligne dans le cas d'une utilisation de l'API REST locale, remettre la valeur de "uriApi" dans la classe "Access.cs" du package "dal" dans l'IDE à l'url de l'API REST en ligne :<br>
+http://restmediatekdocumentsml.atwebpages.com/
